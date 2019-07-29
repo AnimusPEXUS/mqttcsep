@@ -17,8 +17,8 @@ func MakeOptions(broker string, clientid string) *mqtt.ClientOptions {
 
 func GetEnvValue(name string) (string, bool) {
 	for _, i := range os.Environ() {
-		if strings.HasPrefix(name+"=", i) {
-			spl := strings.SplitN(i, "=", 1)
+		if strings.HasPrefix(i, name+"=") {
+			spl := strings.SplitN(i, "=", 2)
 			return spl[1], true
 		}
 	}

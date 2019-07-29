@@ -1,22 +1,21 @@
-version: '3.7'
+version:              '3.7'
 
 services:
 
   client:
-    build: "https://github.com/AnimusPEXUS/mqttcsep.git"
-    restart: always
+    build:            "https://github.com/AnimusPEXUS/mqttcsep.git"
+    restart:          always
     environment:
       MQTTCSEP_WORDS: Hello, cruel world
-    command: app client 
+    command:          app client --broker=mqtt:1883
 
   server:
-    build: "https://github.com/AnimusPEXUS/mqttcsep.git"
-    restart: always
+    build:            "https://github.com/AnimusPEXUS/mqttcsep.git"
+    restart:          always
     environment:
       MQTTCSEP_WORDS: Hello, cruel world
-    command: app server
+    command:          app server --broker=mqtt:1883
 
   mqtt:
-    image: eclipse-mosquitto
-    restart: always
-    
+    image:            eclipse-mosquitto
+    restart:          always
