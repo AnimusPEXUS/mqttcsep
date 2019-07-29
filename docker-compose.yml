@@ -6,14 +6,14 @@ services:
     build: "https://github.com/AnimusPEXUS/mqttcsep.git"
     restart: always
     environment:
-      MQTTCSEP: Hello, cruel world
+      MQTTCSEP_WORDS: Hello, cruel world
     command: app client 
 
   server:
     build: "https://github.com/AnimusPEXUS/mqttcsep.git"
     restart: always
     environment:
-      MQTTCSEP: Hello, cruel world
+      MQTTCSEP_WORDS: Hello, cruel world
     command: app server
 
   mqtt:

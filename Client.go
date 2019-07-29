@@ -26,11 +26,13 @@ func NewClient(cfg *ClientFlags) (*Client, error) {
 }
 
 func (self *Client) Main() {
-	opts := MakeOptions(self.cfg.BrokerAddr)
+	opts := MakeOptions(self.cfg.BrokerAddr, "goclient")
 
-	s := mqtt.NewClient(opts)
+	c := mqtt.NewClient(opts)
 
-	// words_count := self.cfg.Words
+	if token := c.Connect(); token.Wait() && token.Error() != nil {
+		log.Fatal(token.Error())
+	}
 
 	for {
 
@@ -42,7 +44,11 @@ func (self *Client) Main() {
 		i := self.target_words[in.Int64()]
 
 		go func(i string) {
-			s.Publish(fmt.Sprintf("topic_%s", i), 0, false, i)
+			log.Print("sending " + i)
+
+			if token := c.Publish(fmt.Sprintf("topic_%s", i), 0, false, i); token.Wait() && token.Error() != nil {
+				log.Fatal(token.Error())
+			}
 		}(i)
 	}
 

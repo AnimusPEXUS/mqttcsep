@@ -34,6 +34,9 @@ func main() {
 			log.Fatal(err)
 		}
 		c.Main()
+		chanel := make(chan struct{})
+		log.Print("serving..")
+		<-chanel
 	} else {
 		log.Print("client")
 		fs, cf, err := NewClientFlags()
